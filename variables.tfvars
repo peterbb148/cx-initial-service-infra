@@ -12,11 +12,11 @@ private_subnets_ids      = ["subnet-0f183aa846de70e5c","subnet-0c5186e6aef47899b
      
     
 # APP     
-app_name                 = "ct-geoip-service-be" 
+app_name                 = "cx-initial-service"
 
 #ECS
-cluster_name             = "dev-layer2-backend-01"
-container_name           = "ct-geoip-service-be"
+cluster_name             = "Dev-DigitalCluster"
+container_name           = "cx-initial-service"
 container_port_app       = 8080
 num_servers              = 1
 
@@ -33,15 +33,3 @@ lb_s3_is_enabled         = false
 # CPU and memory
 memory                   = "256"
 cpu                      = "0"
-
-# Parameters store
-SPRING_PROFILES_ACTIVE   = "ecs-dev"
-SERVER_PORT              = "8080"
-
-
-# Route 53
-type                    = "CNAME"
-zone_id                 = "Z0900910YMJ3B4YNL2YY"
-TTL                     = "600"
-
-

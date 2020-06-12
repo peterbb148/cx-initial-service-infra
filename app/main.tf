@@ -1,10 +1,10 @@
 terraform {
   backend "s3" {
     bucket                  = "carlsberg-tf-states"
-    key                     = "infra/aws/carlsberg-dev-4834-5903-6065/acn-gbs-cxproject-dev-01/dev/ct-geoip-service-be/app/state.tf"
+    key                     = "infra/aws/carlsberg-dev-4834-5903-6065/acn-gbs-cxproject-dev-01/dev/cx-initial-service/app/state.tf"
     region                  = "eu-west-1"
     shared_credentials_file = "~/.aws/credentials"
-    profile                 = "cx-tf-states"
+    profile                 = "Carlsberg-Dev"
   }
 }
 
@@ -64,16 +64,7 @@ module "ecs-task" {
       "dnsServers": null,
       "mountPoints": [],
       "workingDirectory": null,
-      "secrets": [
-        {
-          "valueFrom": "/${var.environment}/${var.app_name}/SPRING_PROFILES_ACTIVE",
-          "name": "SPRING_PROFILES_ACTIVE"
-        },
-        {
-          "valueFrom": "/${var.environment}/${var.app_name}/SERVER_PORT",
-          "name": "SERVER_PORT"
-        }
-      ],
+      "secrets": [],
       "dockerSecurityOptions": null,
       "memory": 256,
       "memoryReservation": null,
@@ -113,18 +104,4 @@ module "ecs-service" {
   container_name      = var.container_name
   container_port      = var.container_port_app
   environment         = var.environment
-}
-
-# Route53
-module "route53" {
-  source                    = "git::git@github.com:CarlsbergGBS/carlsberg-infra-source.git//modules/tf_aws_route53?ref=v1.0"
-  type                      = var.type
-  zone_id                   = var.zone_id
-  records                   = [
-      {
-        "NAME"   = var.app_name
-        "RECORD" = module.nlb.lb_dns_name
-        "TTL"    = var.TTL
-      },
-    ]
 }

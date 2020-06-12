@@ -26,6 +26,6 @@ variable container_name {}
 variable num_servers {}
 
 # Route53
-variable type {}
-variable zone_id {}
-variable TTL {}
+# variable type {}
+# variable zone_id {}
+# variable TTL {}
